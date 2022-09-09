@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { MainPages } from './pages/General';
+import {Routes, Route} from 'react-router-dom'
+import { initializeApp } from 'firebase/app';
+import { baseURL, firebaseConfig } from './configs';
+import axios from 'axios';
+import { ChatLayout } from './pages/Chat/ChatLayout/index';
+import { NotFound } from './componente/NotFound/index';
+import { BrowserRouter} from 'react-router-dom'
+initializeApp(firebaseConfig)
+
+axios.defaults.baseURL = baseURL
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ 
+  <BrowserRouter>
+     <Routes>
+      <Route path="/" element={<MainPages.Pages.Main/>} />
+      <Route path="/chat/*" element={<ChatLayout/>} />
+      <Route path="*" element={<NotFound/>} />
+    </Routes>
+     
+  </BrowserRouter>
+  
 }
 
-export default App;
+export default App
